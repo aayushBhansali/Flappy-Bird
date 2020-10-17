@@ -68,7 +68,7 @@ $(document).ready(function() {
                 alert("Game over");
             }
 
-            if(birdTop + 30 > Math.round($(pipes[1]).offset().top)){
+            if(birdTop + 10 > Math.round($(pipes[1]).offset().top)){
                 clearInterval(start);
                 clearInterval(movePipe);
                 clearInterval(trackPipe);
