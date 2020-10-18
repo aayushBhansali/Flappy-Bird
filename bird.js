@@ -1,8 +1,14 @@
 let score = 0;
+let birdLeft; 
+let birdHeight;
+let gravity;
 
 $(document).ready(function() {
     let bird = $(".bird");
-
+    birdLeft = $(".bird").offset().left;
+    birdHeight = $(".bird").height()/2;
+    gravity = 10;
+    console.log(birdHeight);
 
     // A function to emulate gravity
     let fall = () => {
@@ -37,7 +43,7 @@ $(document).ready(function() {
         let top = Math.round($(".bird").offset().top);
         let birdBottom = $(window).height() - Math.round(top + $(".bird").height());
 
-        if(birdBottom === Math.round($(window).height() - frameTop - Math.round($(".frame").height()) + 5)){
+        if(birdBottom <= Math.round($(window).height() - frameTop - Math.round($(".frame").height()) - 5)){
             clearInterval(movePipe);
             clearInterval(start);
             clearInterval(trackPipe);
@@ -51,28 +57,28 @@ $(document).ready(function() {
         let birdTop = Math.round($(".bird").offset().top);
         let birdBottom = $(window).height() - Math.round(birdTop + $(".bird").height());
 
-        let birdLeft = Math.round($(".bird").offset().left);
-        let pipeLeft = Math.round($(pipes[0]).offset().left);
+        let pipeLeft = $(pipes[0]).offset().left;
 
         // Check whether pipe encountered or not
-        if(birdLeft > pipeLeft && birdLeft > (pipeLeft + pipeWidth)){
-            // console.log("Inside Pipe");
+        if(birdLeft > pipeLeft && birdLeft < (pipeLeft + pipeWidth)){
 
             // Check whether it is between the height
-            // console.log(Math.round($(pipes[1]).offset().top));
             
-            if((birdTop - frameTop + 5) < Math.round($(pipes[0]).height())){
-                clearInterval(start);
+            if((birdTop - frameTop + 5) < $(pipes[0]).height()){
+                console.log("Upper pipe collision");
+                document.removeEventListener('keydown', checkKey);
                 clearInterval(movePipe);
                 clearInterval(trackPipe);
-                alert("Game over");
+                // alert("Game over");
             }
 
-            if(birdTop + 10 > Math.round($(pipes[1]).offset().top)){
-                clearInterval(start);
+            if(birdTop + birdHeight > $(pipes[1]).offset().top){
+                console.log("Lower pipe collision");
+                // clearInterval(start);
+                document.removeEventListener('keydown', checkKey);
                 clearInterval(movePipe);
                 clearInterval(trackPipe);
-                alert("Game Over");
+                // alert("Game Over");
             }
 
         }
@@ -84,7 +90,7 @@ $(document).ready(function() {
 
     let start = setInterval(() => {
         fall();
-    }, 10);
+    }, gravity);
 
     document.addEventListener('keydown', checkKey);
 

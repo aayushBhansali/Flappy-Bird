@@ -37,7 +37,7 @@ $("document").ready(function(){
         $(topPipe).css("width", "5%");
         $(topPipe).css("left", start + "px");
         $(topPipe).css("height", heightRef);
-        $(topPipe).css("top", frameTop+5);
+        $(topPipe).css("top", frameTop);
 
         // Add a pipe at the bottom
         let bottomPipe = document.createElement("div");
@@ -45,7 +45,7 @@ $("document").ready(function(){
         $(bottomPipe).css("width", "5%");
         $(bottomPipe).css("left", start + "px");
         $(bottomPipe).css("height", frameBottom - heightRef - 300);
-        $(bottomPipe).css("bottom", Math.round($(window).height() - frameTop - Math.round($(".frame").height()) - 5));
+        $(bottomPipe).css("bottom", Math.round($(window).height() - frameTop - Math.round($(".frame").height()) + 5));
 
         // Append both pipe to frame
         frame.append(topPipe);
@@ -68,13 +68,15 @@ $("document").ready(function(){
         $(".pipe-bottom")[0].remove();
         score += 10;
         
-        if(score % 50 == 0){
+        if(score % 100 == 0){
             score += 10;
             speed -= 1;
             pSpeed -= 200;
 
-            if(speed < 1) speed = 1;
+            gravity -= 1;
+            jump += 5;
 
+            if(speed < 1) speed = 1;
             if(pSpeed < 1200) pSpeed = 1200;
 
             clearInterval(movePipe);
