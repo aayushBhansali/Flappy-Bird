@@ -29,7 +29,7 @@ $("document").ready(function(){
         let start = Math.round($(".frame").width() + $(".frame").offset().left - pipeWidth);
         let frame = document.getElementsByClassName("frame")[0];
 
-        let heightRef = randomInteger(10, frameBottom/2)
+        let heightRef = randomInteger(100, frameBottom/2)
 
         // Add a pipe at the top
         let topPipe = document.createElement("div");
@@ -44,7 +44,7 @@ $("document").ready(function(){
         bottomPipe.setAttribute("class", "pipe-bottom");
         $(bottomPipe).css("width", "5%");
         $(bottomPipe).css("left", start + "px");
-        $(bottomPipe).css("height", frameBottom - heightRef - 300);
+        $(bottomPipe).css("height", frameBottom - heightRef - 330);
         $(bottomPipe).css("bottom", Math.round($(window).height() - frameTop - Math.round($(".frame").height()) + 5));
 
         // Append both pipe to frame
